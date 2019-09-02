@@ -36,10 +36,13 @@
     "@babel/core": "7.5.5",
     "@babel/plugin-transform-typescript": "7.5.5",
     "@babel/preset-env": "7.5.5",
-    "@babel/preset-typescript": "^7.3.3"
+    "@babel/preset-typescript": "^7.3.3",
+    "@types/node": "^12.7.3",
+    "@types/websocket": "0.0.40"
   },
   "dependencies": {
     "@babel/polyfill": "7.4.4",
-    "core-js": "3.2.1"
+    "core-js": "3.2.1",
+    "websocket": "^1.0.29"
   }
 }

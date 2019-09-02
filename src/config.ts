@@ -1,4 +1,4 @@
-interface BaseConfig{
+export interface BaseConfig {
   server: string
   port: number
   serverid: string
@@ -9,7 +9,6 @@ interface BaseConfig{
   commandcharacter: string
   defaultrank: string
   groups: any
-  watchconfig: boolean
   secprotocols?: string[]
   debuglevel: number
   excepts?: string[]
@@ -78,12 +77,6 @@ export const config: BaseConfig = {
     '&': 5,
     '~': 6
   },
-
-  /**
-   * Whether this file should be watched for changes or not.
-   * If you change this option, the server has to be restarted in order for it to take effect.
-   */
-  watchconfig: false,
 
   /**
    * Secondary websocket protocols should be defined here, however, Showdown
