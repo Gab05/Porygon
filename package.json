@@ -1,0 +1,45 @@
+{
+  "name": "porygon",
+  "version": "0.0.0",
+  "description": "PokemonShowdown websocket client",
+  "main": "app.ts",
+  "babel": {
+    "presets": [
+      "@babel/preset-typescript"
+    ]
+  },
+  "scripts": {
+    "start": "node lib/app.js",
+    "prestart": "npm run compilets",
+    "compilets": "./node_modules/.bin/babel src --extensions \".ts\" --out-dir lib"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Gab05/Porygon.git"
+  },
+  "keywords": [
+    "porygon",
+    "pokemon",
+    "pokemonshowdown",
+    "showdown",
+    "bot",
+    "websocket"
+  ],
+  "author": "gab05",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Gab05/Porygon/issues"
+  },
+  "homepage": "https://github.com/Gab05/Porygon#readme",
+  "devDependencies": {
+    "@babel/cli": "7.5.5",
+    "@babel/core": "7.5.5",
+    "@babel/plugin-transform-typescript": "7.5.5",
+    "@babel/preset-env": "7.5.5",
+    "@babel/preset-typescript": "^7.3.3"
+  },
+  "dependencies": {
+    "@babel/polyfill": "7.4.4",
+    "core-js": "3.2.1"
+  }
+}
