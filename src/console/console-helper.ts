@@ -71,10 +71,9 @@ export class ConsoleHelper {
     }
   }
 
-  init = () =>{
+  init = () => {
     this.printWelcomeMessage()
     this.checkCommandCharacter()
-    this.info('Starting server...')
   }
 
   private applyColor = (color: string) => color + '%s\x1b[0m'
