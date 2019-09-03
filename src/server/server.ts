@@ -3,7 +3,7 @@ import { ConsoleHelper } from '../console/console-helper'
 import { Commands } from './commands/commands'
 import { DataSender } from './data-sender'
 import { Queue } from './queue'
-import { Users } from './users/users'
+import { UserManager } from './users/user-manager'
 import { BaseConfig } from '../config'
 
 export class Server {
@@ -15,7 +15,7 @@ export class Server {
   private queue: Queue
   private dataSender: DataSender
   private commands: Commands
-  private users: Users
+  private userManager: UserManager
 
   private connection: any = null
   private connectionRetries: number = 0
@@ -26,7 +26,7 @@ export class Server {
     this.queue = new Queue()
     this.dataSender = new DataSender(consoleHelper, this.queue, this.connection)
     this.commands = new Commands(consoleHelper)
-    this.users = new Users()
+    this.userManager = new UserManager()
   }
 
   start = () => {
@@ -59,8 +59,8 @@ export class Server {
         this.console.error('connection closed: ' + reason + ' (' + code + ')');
         this.console.info('retrying in one minute');
 
-        for (var i in Users.users) {
-          delete Users.users[i];
+        for (var i in UserManager.users) {
+          delete UserManager.users[i];
         }
         Rooms.rooms.clear();
         setTimeout(function () {
