@@ -39,14 +39,14 @@ export class Server {
   }
 
   private setupClient = () => {
-    this.wsClient = new WebSocketClient();
+    this.wsClient = new WebSocketClient()
 
     this.wsClient.on('connectFailed', this.onConnectionFailed)
-    this.wsClient.on('connect', this.handleSuccessfulConnection);
+    this.wsClient.on('connect', this.handleSuccessfulConnection)
   }
 
   private openConnection = () => {
-    const connectionString = this.generateConnectionString();
+    const connectionString = this.generateConnectionString()
     this.console.info(
       `connecting to ${connectionString} - secondary protocols: ${this.config.secprotocols.join(', ') || 'none'}`
     )
@@ -54,21 +54,21 @@ export class Server {
   }
 
   private onConnectionFailed = (err: any) => {
-    this.console.error(`Could not connect to server ${this.config.server}: ${err.stack}`);
-    this.console.info('Retrying in one minute...');
+    this.console.error(`Could not connect to server ${this.config.server}: ${err.stack}`)
+    this.console.info('Retrying in one minute...')
 
     this.connectionRetries++
-    setTimeout(() => this.connect(), 60000);
+    setTimeout(() => this.connect(), 60000)
   }
 
   private handleSuccessfulConnection = (connection: any) => {
-    this.connection = connection;
+    this.connection = connection
     this.dataSender.setConnection(this.connection)
-    this.console.ok('Connected to server ' + this.config.server);
+    this.console.ok('Connected to server ' + this.config.server)
 
-    this.connection.on('error', this.printConnectionError);
-    this.connection.on('close', this.onConnectionClosed);
-    this.connection.on('message', this.onConnectionMessage);
+    this.connection.on('error', this.printConnectionError)
+    this.connection.on('close', this.onConnectionClosed)
+    this.connection.on('message', this.onConnectionMessage)
   }
 
   private printConnectionError = (err: any) => this.console.error('connection error: ' + err.stack)
@@ -76,33 +76,33 @@ export class Server {
   private onConnectionClosed = (code: number, reason: string) => {
     // Is this always error or can this be intended...?
     this.console.error(`Connection closed: ${reason} (${code})`)
-    this.console.info('Retrying in one minute...');
+    this.console.info('Retrying in one minute...')
 
     this.userManager.deleteAll()
     this.roomManager.deleteAll()
 
     this.connectionRetries = 0
-    setTimeout( () => this.connect(), 60000);
+    setTimeout( () => this.connect(), 60000)
   }
 
   private onConnectionMessage = (response: any) => {
     if (response.type !== 'utf8') return
 
-    const message = response.utf8Data;
-    this.console.recv(message);
+    const message = response.utf8Data
+    this.console.recv(message)
 
     // SockJS messages sent from the server begin with 'a'
     // this filters out other SockJS response types (heartbeats in particular)
     if (message.charAt(0) !== 'a') return
-    Parse.data(message);
+    Parse.data(message)
   }
 
   private generateConnectionString = () => {
     const id: number = Math.floor(Math.random() * 1000)
-    const chars: string = 'abcdefghijklmnopqrstuvwxyz0123456789_';
+    const chars: string = 'abcdefghijklmnopqrstuvwxyz0123456789_'
 
     let randomString = ''
-    for (let i = 0; i < 8; i++) randomString += chars.charAt(Math.floor(Math.random() * chars.length));
+    for (let i = 0; i < 8; i++) randomString += chars.charAt(Math.floor(Math.random() * chars.length))
 
     return `ws://${this.config.server}:${this.config.port}/showdown/${id}/${randomString}/websocket`
   }

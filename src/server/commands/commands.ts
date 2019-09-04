@@ -26,7 +26,7 @@ export class Commands {
 
   git = (arg, user, room) => {
     var text = (room === user || user.isExcepted()) ? '' : '/pm ' + user.id + ', ';
-    text += '**Pokemon Showdown Bot** source code: ' + Config.fork;
+    text += '**Porygon: a PS Bot** source code: ' + Config.fork;
     this.say(room, text);
   }
 
